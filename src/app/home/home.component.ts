@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ChatService } from '../chat.service';
+import { ChatService, Message } from '../chat.service';
 
 @Component({
   selector: 'app-home',
@@ -29,5 +29,18 @@ export class HomeComponent implements OnInit {
 
   onSubmit() {
     console.log("clicked submit", this.chatForm.value);
+
+    let data: Message = {
+      user: this.chatForm.value.user,
+      id: 0,
+      message: this.chatForm.value.message,
+      channel: this.chatForm.value.channel
+    };
+
+    this.chat.createNewMessage(data).subscribe(response => {
+      console.log("recieved response from api", response);
+      this.messages = response;
+    });
+
   }
 }
