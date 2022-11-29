@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ChatService } from '../chat.service';
 
 @Component({
@@ -10,7 +11,14 @@ export class HomeComponent implements OnInit {
 
   messages: any[] = [];
 
-  constructor(private chat: ChatService) { }
+  chatForm: FormGroup = this.fb.group({
+    channel: [''],
+    message: [''],
+    user: ['']
+  });
+
+  constructor(private chat: ChatService, private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.chat.getAllMessages("news").pipe().subscribe(data => {
@@ -19,4 +27,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    console.log("clicked submit", this.chatForm.value);
+  }
 }

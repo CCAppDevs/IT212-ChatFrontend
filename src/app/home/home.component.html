@@ -1,5 +1,17 @@
 <h1>Chat App</h1>
 
+<form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+    <label>Channel</label>
+    <input type="text" formControlName="channel">
+    <label>Message</label>
+    <input type="text" formControlName="message">
+    <label>User</label>
+    <input type="text" formControlName="user">
+    <input type="submit">
+</form>
+<hr>
+<app-message-item *ngFor="let item of messages" [message]="item"></app-message-item>
+
 <pre>
 {{ messages | json }}
 </pre>
